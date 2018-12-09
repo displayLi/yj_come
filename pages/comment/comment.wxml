@@ -1,0 +1,32 @@
+<view class="container">
+    <block wx:for="{{cardsList}}" wx:key="*this" wx:for-index="cardsidx">
+        <view class="comment">
+
+            <view class="content weui-flex">
+                <view class="conten-img">
+                    <image src="{{item.stock_info.spec_pic}}" mode="scaleToFill" lazy-load></image>
+                </view>
+                <textarea data-cardsidx="{{cardsidx}}" class="weui-flex__item" placeholder="请输入您对购买的商品的评价" placeholder-style="color:#bbb;" bindinput="_input"/>
+            </view>
+
+            <view class="grade weui-flex">
+                <view>描述相符</view>
+                <view class="icon-box weui-flex__item">
+                    <block wx:for="{{5}}" wx:key="*this">
+                        <icon data-cardsidx="{{cardsidx}}"  data-index="{{index}}" class="iconfont icon-xingxing2 {{index < comments[cardsidx].grade ? 'red' : ''}}" bindtap="_gradeChange"></icon>
+                    </block>
+                </view>
+            </view>
+
+        </view>
+    </block>
+    <view class="btn-bottom2">
+        <view class="weui-flex">
+            <button bindtap="_comment">立即评价</button>
+        </view>
+    </view>
+</view>
+
+<success title="评价成功" btn-name="返回订单" bindbtn="_goAllOrder" wx:if="{{success}}">
+    <view slot="content">评价成功，感谢您的支持！</view>
+</success>

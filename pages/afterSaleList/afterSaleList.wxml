@@ -1,0 +1,59 @@
+<script src="../../../红人智库/红人智库vue/src/service/getData.js"></script>
+<view class="container">
+
+    <block wx:for="{{list}}" wx:key="*this">
+        <view class="orderList-box">
+            <navigator url="../afterSaleInfo/afterSaleInfo?id={{item.id}}">
+
+                <!-- 头部 -->
+                <view class="shoppingCart-ttBox">
+                    <view class="shoppingCart-tt"><icon class="iconfont icon-dianpu"></icon>特步微商城 <text class="fr" style="color: #d6000f;">{{item.status.statusDesc}}</text></view>
+                </view>
+                <!-- 头部/ -->
+
+                <!-- 商品信息 -->
+                <view class="weui-cells weui-cells_after-title" style="margin-bottom: 0;background-color: #f8f8f8;">
+                    <view class="weui-cell weui-check__label orderList-cell">
+                        <view class="weui-cell__bd">
+                            <view class="shoppingCart-img">
+                                <image mode="scaleToFill" src="{{item.snap_carts.stock_info.spec_pic}}"></image>
+                            </view>
+                            <view class="shoppingCart-box">
+                                <view class="shoppingCart-box-ct1 text2">{{item.snap_carts.stock_info.product_name}}</view>
+                                <view class="shoppingCart-box-ct2">
+                                    颜色：{{item.snap_carts.stock_info.spec_name}}；
+                                    尺码：{{item.snap_carts.stock_info.size}}
+                                </view>
+                                <view class="shoppingCart-box-ct3">
+                                    <text>￥</text>{{item.snap_carts.stock_info.shop_price}}
+                                    <text class="fr">x{{item.snap_carts.count}}</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <!-- 商品信息/ -->
+
+                <!-- 金额 -->
+                <view class="weui-cells weui-cells_after-title orderList-form">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">交易金额：￥{{item.snap_carts.proPrice}} 退款金额：<text style="color: #d6000f;">￥{{item.money}}</text></view>
+                    </view>
+                </view>
+                <!-- 金额/ -->
+
+            </navigator>
+        </view>
+    </block>
+
+    <view class="loadmore-bg">
+        <view class="weui-loadmore" hidden="{{!has_more}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{has_more}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+    </view>
+
+</view>

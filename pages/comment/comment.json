@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "success": "../components/success/success"
+  }
+}

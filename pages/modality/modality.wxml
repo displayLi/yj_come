@@ -1,0 +1,22 @@
+<view class="container">
+   
+    <view class="weui-cells weui-cells_after-title modality-cells">
+
+        <navigator url="../afterSale/afterSale?orderId={{orderId}}&cartsId={{cartsId}}&modality=1{{id ? '&id=' + id : ''}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__hd">
+                <icon class="iconfont icon-tuikuan"></icon>
+            </view>
+            <view class="weui-cell__bd">仅退款</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+
+        <navigator url="../afterSale/afterSale?orderId={{orderId}}&cartsId={{cartsId}}&modality=2" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__hd">
+                <icon class="iconfont icon-gift"></icon>
+            </view>
+            <view class="weui-cell__bd">退货退款</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+
+    </view>
+</view>

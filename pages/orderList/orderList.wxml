@@ -1,0 +1,130 @@
+<view class="container">
+    <!-- 选项卡 -->
+    <view class="weui-flex orderList-nav">
+        <block wx:for="{{orderStatus}}" wx:key="{{item.status}}">
+            <view class="weui-flex__item {{item.status == status ? 'act':''}}" data-status="{{item.status}}" bindtap="_statusChange">
+                {{item.statusName}}
+            </view>
+        </block>
+    </view>
+    <!-- 选项卡/ -->
+
+    <view class="orderList">
+        <block wx:for="{{orderList}}" wx:key="*this">
+
+            <view class="orderList-box">
+
+                <navigator url="../orderInfo/orderInfo?id={{item.id}}" >
+                    <!-- 头部状态 -->
+                    <view class="shoppingCart-ttBox">
+                        <view class="shoppingCart-tt">
+                            <icon class="iconfont icon-dianpu"></icon>
+                            特步微商城
+                            <text class="fr" style="color: #d6000f;">{{item.order_status.statusName}}</text>
+                        </view>
+                    </view>
+                    <!-- 头部状态/ -->
+
+                    <!-- 商品列表 -->
+                    <view class="weui-cells weui-cells_after-title" style="margin-bottom: 0;background-color: #f8f8f8;">
+                        <block wx:for="{{item.snap_carts}}" wx:for-item="carts" wx:key="*this">
+                            <view class="weui-cell weui-check__label orderList-cell">
+                                <view class="weui-cell__bd">
+
+                                    <view class="shoppingCart-img">
+                                        <image mode="scaleToFill" src="{{carts.stock_info.spec_pic}}" lazy-load></image>
+                                    </view>
+
+                                    <view class="shoppingCart-box">
+
+                                        <view class="shoppingCart-box-ct1 text2">{{carts.stock_info.product_name}}</view>
+
+                                        <view class="shoppingCart-box-ct2">
+                                            颜色：{{carts.stock_info.spec_name}}；
+                                            尺码：{{carts.stock_info.size}}
+                                        </view>
+
+                                        <view class="shoppingCart-box-ct3">
+                                            <text>￥</text>{{carts.stock_info.shop_price}}
+                                            <text class="fr">x{{carts.count}}</text>
+                                        </view>
+
+                                    </view>
+
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                    <!-- 商品列表/ -->
+
+                    <!-- 合计 -->
+                    <view class="weui-cells weui-cells_after-title orderList-form">
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">
+                                共{{item.Orders.length}}件商品,合计：
+                                <text style="color: #d6000f;">￥{{item.total_amount}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <!-- 合计/ -->
+                </navigator>
+
+                <!-- 待付款对应按钮 -->
+                <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{item.order_status.status == 1}}">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd orderList-btn">
+                            <button data-index="{{index}}" class="weui-btn mini-btn" type="default" size="mini" bindtap="_cancelOrder">取消订单</button>
+                            <button data-index="{{index}}" class="weui-btn mini-btn" type="default" size="mini" bindtap="_pay">立即支付</button>
+                        </view>
+                    </view>
+                </view>
+                <!-- 待付款对应按钮/ -->
+
+                <!-- 待收货对应按钮 -->
+                <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{item.order_status.status == 3}}">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd orderList-btn">
+                            <button data-index="{{index}}" class="weui-btn mini-btn" type="default" size="mini" bindtap="_confirmDelivery">确认收货</button>
+                        </view>
+                    </view>
+                </view>
+                <!-- 待收货对应按钮/ -->
+
+                <!-- 待评价对应按钮 -->
+                <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{item.order_status.status == 4}}">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd orderList-btn">
+                            <button data-id="{{item.id}}" class="weui-btn mini-btn" type="default" size="mini" bindtap="_goComment">评价</button>
+                            <button data-index="{{index}}" class="weui-btn mini-btn" type="default" size="mini" bindtap="_deleteOrder">删除订单</button>
+                        </view>
+                    </view>
+                </view>
+                <!-- 待评价对应按钮/ -->
+
+                 <!-- 已完成对应按钮 -->
+                <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{item.order_status.status == 5}}">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd orderList-btn">
+                            <button data-index="{{index}}" class="weui-btn mini-btn" type="default" size="mini"  bindtap="_deleteOrder">删除订单</button>
+                        </view>
+                    </view>
+                </view>
+                <!-- 已完成对应按钮/ -->
+
+            </view>
+        </block>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loadmore-bg">
+        <view class="weui-loadmore" hidden="{{!has_more}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{has_more}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+    </view>
+    <!-- 加载状态/ -->
+
+</view>

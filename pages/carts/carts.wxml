@@ -1,0 +1,109 @@
+<view class="container">
+
+  <view hidden="{{!cartsList.length}}">
+      <!-- 头部 -->
+      <view class="shoppingCart-ttBox">
+          <view class="shoppingCart-tt">
+            <icon class="iconfont icon-dianpu"></icon>
+            特步微商城 
+            <text class="fr" bindtap="_editShow">{{edit?'完成':'编辑'}}</text>
+          </view>
+      </view>
+      <!-- 头部/ -->
+      
+      <view class="weui-cells weui-cells_after-title">
+          <checkbox-group bindchange="_checkChange">
+            <block wx:for="{{cartsList}}" wx:key="*this">
+               <view class="weui-cell weui-check__label">
+                  <!-- 多选 -->
+                  <label>
+                      <checkbox class="weui-check" value="{{index}}" checked="{{item.isCheck}}"/>
+
+                      <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                          <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.isCheck}}"></icon>
+                          <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.isCheck}}"  color="#060606"></icon>
+                      </view>
+                  </label>
+                  <!-- 多选/ -->
+
+                  <view class="weui-cell__bd">
+                      <!-- 详情 -->
+                      <navigator url="../productInfo/productInfo?id={{item.stock_info.product_id}}" >
+
+                          <view class="shoppingCart-img">
+                              <image mode="scaleToFill" src="{{item.stock_info.spec_pic}}"></image>
+                          </view>
+                          
+                          <view class="shoppingCart-box"  hidden="{{edit}}">
+                              <view class="shoppingCart-box-ct1 text2">{{item.stock_info.product_name}}</view>
+                              
+                              <view class="shoppingCart-box-ct2">
+                                颜色：{{item.stock_info.spec_name}}；
+                                尺码：{{item.stock_info.size}}
+                              </view>
+
+                              <view class="shoppingCart-box-ct3">
+                                <text>￥</text>
+                                {{item.stock_info.shop_price}} 
+                                <text class="fr">x{{item.count}}</text>
+                              </view>
+                          </view>
+
+                      </navigator>
+                      <!-- 详情/ -->
+
+                      <!-- 编辑 -->
+                      <view class="shoppingCart-box2" hidden="{{!edit}}">
+                          <view class="shoppingCart-box2-ipt">
+                              <button data-index="{{index}}" bindtap="_minusCount">-</button>
+                              <input  data-index="{{index}}" type="number" value="{{item.count}}" bindinput="_countInput"/>
+                              <button  data-index="{{index}}" bindtap="_addCount">+</button>
+                          </view>
+                          <view class="shoppingCart-box2-ct">库存{{item.stock_info.stock}}</view>
+                          <view class="shoppingCart-box2-ct">{{item.stock_info.spec_name}}；{{item.stock_info.size}}</view>
+                      </view>
+                      <!-- 编辑/ -->
+
+                  </view>
+              </view>
+            </block>
+          </checkbox-group>
+      </view>
+
+      <!-- 底部 -->  
+      <view class="btn-bottom2">
+          <view class="weui-flex">
+
+              <checkbox-group bindchange="_allCheckChange">
+                  <label class="weui-cell weui-check__label">
+                      <checkbox class="weui-check" checked="{{allCheck}}"/>
+                      <view class="weui-cell__hd weui-check__hd_in-checkbox" style="padding-right: 0;">
+                          <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!allCheck}}"></icon>
+                          <icon class="weui-icon-checkbox_success" color="#060606" type="success" size="23" wx:if="{{allCheck}}"></icon>
+                      </view>
+                      <view class="weui-cell__bd">全选</view>
+                  </label>
+              </checkbox-group>
+
+              <view class="weui-flex__item">
+                  <view hidden="{{edit}}">
+                      <view class="btn-bottom2-ct1">合计：{{totalPrices}}</view>
+                      <view class="btn-bottom2-ct2">不含运费</view>
+                  </view>
+              </view>
+
+              <button  hidden="{{edit}}" bindtap="_goSettlement">结算 <text>({{total}})</text></button>
+              <button  hidden="{{!edit}}" bindtap="_remove">删除</button>
+              
+          </view>
+      </view>
+      <!-- 底部 -->  
+
+  </view>
+
+  <view class="shoppingCart-null"  hidden="{{cartsList.length}}">
+      <icon class="iconfont icon-gouwuchexiantiao"></icon>
+      <view>这儿还没有您的宝贝,</view>
+      <view>快去加入购物车吧,</view>
+  </view>
+</view>

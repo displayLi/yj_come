@@ -1,0 +1,157 @@
+<import src="../../utils/wxParse/wxParse.wxml"/>
+
+<view class="container">
+    <view class="productInfo-swiperBox">
+
+        <!-- 左上角后退 -->
+        <navigator open-type="navigateBack" delta="1" class="btn btn-l">
+            <view class="iconfont icon-xiangzuo" style="margin-right: -10rpx;margin-top: 14rpx;"></view>
+        </navigator>
+        <!-- 左上角后退 -->
+
+        <!-- 右上角前往购物车 -->
+        <navigator url="../carts/carts" open-type="switchTab" class="btn btn-r">
+            <view class="iconfont icon-gouwuchexiantiao"></view>
+        </navigator>
+        <!-- 右上角前往购物车/ -->
+
+        <!-- 商品轮播 -->
+        <swiper indicator-dots
+                indicator-active-color="#d6000f"
+                autoplay
+                style="height: 750rpx;"
+        >
+            <block wx:for="{{product.pic_list}}" wx:key="*this">
+                <swiper-item>
+                    <view class="productInfo-swiper-img">
+                        <image src="{{item.pic}}" mode="scaleToFill"/>
+                    </view>
+                </swiper-item>
+            </block>
+        </swiper>
+        <!-- 商品轮播 -->
+
+    </view>
+
+    <!-- 商品信息 -->
+    <view class="productInfo-box1">
+        <view class="productInfo-box1-ct1">{{product.product_name}}</view>
+        <view class="productInfo-box1-ct2">
+          <text>¥</text>{{product.shop_price}} 
+          <text class="del">¥{{product.market_price}}</text>
+          <text class='sales'>销量：{{product.product_sales}}</text>
+        </view>
+    </view>
+    <!-- 商品信息/ -->
+
+    <!-- 商品详情与评价 -->
+    <view class="weui-flex productInfo-navbar">
+        <view class="weui-flex__item {{snavbar == snav.detail ? 'act' : ''}}"
+              data-snavbar="{{snav.detail}}" 
+              bindtap="_snavChange">商品详情</view>
+
+        <view class="weui-flex__item {{snavbar == snav.comments ? 'act' : ''}}" 
+              data-snavbar="{{snav.comments}}" 
+              bindtap="_snavChange">商品评价</view>
+    </view>
+
+    <view hidden="{{!(snavbar == snav.detail)}}">
+      <view class="detail">
+        <template is="wxParse" data="{{wxParseData:productContent.nodes}}"/>      
+      </view>
+    </view>
+
+    <view hidden="{{!(snavbar == snav.comments)}}">
+      <view class="evaluate-list"style="padding-bottom: 50px;">
+          <block wx:for="{{commentList}}" wx:key="*this">
+              <view class="weui-flex">
+                  <image class="evaluate-list-img" lazy-load src="{{item.user.pic}}" mode="scaleToFill"/>
+                  <view class="weui-flex__item evaluate-list-ct">
+                      <view class="clearfix">{{item.user.user_name}} <text class="fr">{{item.create_time}}</text></view>
+                      <view>{{item.content}}</view>
+                      <view>
+                          <icon wx:for="{{5}}" wx:key="{{index}}"  wx:for-item="itemName" class="iconfont icon-xingxing2 {{ index + 1 <= item.grade? 'yellow' : ''}}"></icon>
+                      </view>
+                  </view>
+              </view>
+          </block>
+      </view>
+    </view>
+    <!-- 商品详情与评价/ -->
+
+    <!-- 底部 -->
+    <view class="btn-bottom">
+        <view class="weui-flex">
+
+            <navigator url="../index/index" open-type="switchTab">
+              <view class="iconfont icon-icon-home"></view>
+            </navigator>
+
+            <navigator url="../carts/carts" open-type="switchTab">
+              <view class="iconfont icon-gouwuchexiantiao"></view>
+            </navigator>
+
+            <view class="weui-flex__item"><button bindtap="_addCartShow">加入购物车</button></view>
+
+        </view>
+    </view>
+    <!-- 底部/ -->
+
+    <!-- 购物车弹窗 -->
+    <view class="addCart-bg" hidden="{{addCartHidden}}">
+        <view class="addCart">
+
+            <view class="weui-flex addCart-goods">
+                <image src="{{carts.pic}}" mode="scaleToFill"/>
+                <view class="weui-flex__item addCart-goods-ct">
+                    <view class="text2">{{carts.product_name}}</view>
+                    <view class="red">¥{{carts.price}}</view>
+                </view>
+                <view class="close" bindtap="_addCartShow">×</view>
+            </view>
+
+            <scroll-view scroll-y style="height: 508rpx;">
+
+                <view class="addCart-box">
+                    <view class="addCart-box-tt">颜色：</view>
+                    <view class="addCart-box-ct">
+                        <block wx:for="{{specToSizelist.spec}}" wx:key="*this">
+                           <button class="{{specName == item ? 'red' : '' }}" 
+                                   data-spec="{{item}}" 
+                                   bindtap="_selectSpec">{{item}}</button>
+                        </block>
+                    </view>
+                </view>
+
+                 <view class="addCart-box">
+                    <view class="addCart-box-tt">尺码：</view>
+                    <view class="addCart-box-ct">
+                        <block wx:for="{{specToSizelist.size}}" wx:key="*this">
+                           <button class="{{sizeName == item ? 'red' : '' }}"
+                                   data-size="{{item}}"  
+                                   bindtap="_selectSize">{{item}}</button>
+                        </block>
+                    </view>
+                </view>
+
+                <view class="addCart-box" style="border-bottom: none 0;">
+                    <view class="addCart-box-tt">数量：</view>
+                    <view class="addCart-box-ipt">
+                        <button bindtap="_minusCount">-</button>
+                        <input type="number" disabled="{{!stockInfo}}" value="{{count}}" data-name='count' bindinput="_countInput"/>
+                        <button bindtap="_addCount">+</button>
+                    </view>
+                    <view class="addCart-box-stock" hidden="{{!stockInfo.stock}}">库存:{{stockInfo.stock}}</view>
+                </view>
+
+            </scroll-view>
+
+            <view class="weui-flex addCart-btn">
+                <view class="weui-flex__item"><button class="red" bindtap="_purchaseNow">立即购买</button></view>
+                <view class="weui-flex__item"><button bindtap="_addCarts">加入购物车</button></view>
+            </view>
+
+        </view>
+    </view> 
+    <!-- 购物车弹窗/ --> 
+</view>

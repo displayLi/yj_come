@@ -1,0 +1,204 @@
+<view class="container" wx:if="{{index}}">
+    <!-- 搜索-->
+     <view class="home-ssh-box">
+        <view class="home-ssh">
+            <view class="weui-search-bar">
+                <view class="weui-search-bar__form">
+
+                    <view class="weui-search-bar__box">
+                        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="_inputTyping" />
+                        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="_clearInput">
+                            <icon type="clear" size="14"></icon>
+                        </view>
+                    </view>
+
+                    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="_showInput">
+                        <icon class="weui-icon-search" type="search" size="14"></icon>
+                        <view class="weui-search-bar__text">搜索</view>
+                    </label>
+
+                </view>
+                <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" style="color: #d6000f;">
+                  <navigator url="../productList/productList?keyword={{inputVal}}">搜索</navigator>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--搜索-->
+
+    <!-- 广告位模板
+      -- 1.公告
+      -- 2.轮播
+      -- 3.三图
+      -- 4.图片加列表
+      -- 5.列表
+      -- 6.分馆
+      -- 7.分类
+    -->
+    <!-- show_type字段表示跳转列表还是商品
+      -- 1.列表
+      -- 2.商品
+     -->
+    <block wx:for="{{index}}" wx:key="*this">
+        <!-- 轮播 -->
+        <block wx:if="{{item.template_id == 2}}">
+            <swiper indicator-dots
+                    autoplay
+                    circular
+                    indicator-active-color="#d6000f"
+                    style="height: 430rpx"
+            >
+                <block wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                    <swiper-item>
+                        <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                            <image src="{{adContent.pic}}" class="slide-image" mode="widthFix" lazy-load style="width:100%;"/>
+                        </navigator>
+                    </swiper-item>
+                </block>
+            </swiper>
+        </block>
+        <!-- 轮播/ -->
+
+        <!-- 运动馆 -->
+        <block wx:if="{{item.template_id == 6}}">
+            <view class="home-exercise-items">
+                <block wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                    <view class="home-exercise-item">
+                        <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                            <image src="{{adContent.pic}}" mode="widthFix" lazy-load style="width: 100%;"/>
+                            <view class="home-exercise-item-ct">
+                                <view>{{adContent.ad_name}}</view>
+                                <view>{{adContent.content_desc}}</view>
+                            </view>
+                        </navigator>
+                    </view>
+                </block>
+            </view>
+        </block>
+        <!-- 运动馆/ -->
+
+        <!-- 特步头条 -->
+        <block wx:if="{{item.template_id == 1}}">
+            <view class="weui-flex toutiao">
+                <view class="toutiao-img">
+                    <image src="../../imgs/toutiao.png" lazy-load mode="widthFix"/>
+                </view>
+                <view class="weui-flex__item">
+                    <swiper autoplay
+                            vertical
+                            circular
+                    >
+                        <block wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                            <swiper-item>
+                                <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                                    {{adContent.ad_name}}
+                                </navigator>
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                </view>
+            </view>
+        </block>
+        <!-- 特步头条/ -->
+
+        <!-- 三图广告 -->
+        <block wx:if="{{item.template_id == 3}}">
+            <view class="home-imgBox clearfix">
+                <block wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                    <view class="home-imgBox-img1" wx:if="{{index == 0}}">
+                        <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                            <image src="{{adContent.pic}}" mode="widthFix" lazy-load style="width: 100%;height: 100%;"/>
+                        </navigator>
+                    </view>
+                    <view class="home-imgBox-img2" wx:if="{{index != 0}}">
+                        <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                            <image src="{{adContent.pic}}" mode="widthFix" lazy-load style="width: 100%;height: 100%;"/>
+                        </navigator>
+                    </view>
+                </block>
+            </view>
+        </block>
+        <!-- 三图广告/ -->
+
+        <!-- 分类 -->
+        <block wx:if="{{item.template_id == 7}}">
+            <view class="home-nav clearfix">
+                <block wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                    <view class="home-nav-list">
+                        <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                            <image src="{{adContent.pic}}" mode="scaleToFill" lazy-load/>
+                        </navigator>
+                        <view>{{adContent.ad_name}}</view>
+                    </view>
+                </block>
+            </view>
+        </block>
+        <!-- 分类/ -->
+
+        <!-- 列表加图片 -->
+        <block wx:if="{{item.template_id == 4}}">
+            <block  wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                <view class="home-box">
+                    <view class="home-box-tt">{{adContent.ad_name}}</view>
+                    <navigator url="{{(adContent.show_type == 1 ? '../productList/productList' : '../productInfo/productInfo') + '?adContentId=' + adContent.id}}">
+                        <image src="{{adContent.pic}}" mode="widthFix" lazy-load style="width: 100%;"/>
+                    </navigator>
+                    <swiper display-multiple-items="3"
+                            autoplay
+                            circular
+                            style="height: 340rpx;"
+                            class="home-box-swiper"
+                            wx:if="{{swiperCompatibility}}"
+                    >
+                        <block  wx:for="{{adContent.products}}" wx:for-item="product" wx:key="*this">
+                            <swiper-item>
+                                <navigator url="{{'../productInfo/productInfo?id=' + product.id}}">
+                                    <image src="{{product.pic_list[0].pic}}" class="slide-image" mode="widthFix" lazy-load/>
+                                    <view class="text1" style="font-size: 24rpx;">{{product.product_name}}</view>
+                                    <view>￥{{product.shop_price}}元</view>
+                                </navigator>
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                    <!-- 兼容模式 -->
+                    <view class="guessLike-items clearfix" wx:if="{{!swiperCompatibility}}">
+                        <block wx:for="{{adContent.products}}" wx:for-item="product" wx:key="*this">
+                            <view class="guessLike-item">
+                                <navigator url="{{'../productInfo/productInfo?id=' + product.id}}">
+                                    <image src="{{product.pic_list[0].pic}}" class="slide-image" mode="widthFix" lazy-load/>
+                                    <view class="text1" style="font-size: 24rpx;">{{product.product_name}}</view>
+                                    <view class="red">￥{{product.shop_price}}元</view>
+                                </navigator>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <!-- 列表加图片/ -->
+
+        <!--猜你喜欢-->
+        <block wx:if="{{item.template_id == 5}}">
+            <block wx:for="{{item.ad_content}}" wx:for-item="adContent" wx:key="*this">
+                <view class="guessLike clearfix">
+                    <view class="guessLike-tt"><i class="iconfont icon-aixin1"></i>{{adContent.ad_name}}</view>
+                    <view class="guessLike-items clearfix">
+                        <block wx:for="{{adContent.products}}" wx:for-item="product" wx:key="*this">
+                            <view class="guessLike-item">
+                                <navigator url="{{'../productInfo/productInfo?id=' + product.id}}">
+                                    <image src="{{product.pic_list[0].pic}}" class="slide-image" mode="widthFix" lazy-load/>
+                                    <view class="text1">{{product.product_name}}</view>
+                                    <view class="red">￥{{product.shop_price}}元</view>
+                                    <view class="gray">已售{{product.product_sales}}件</view>
+                                </navigator>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <!--猜你喜欢/ -->
+
+    </block>
+</view>

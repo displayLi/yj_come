@@ -1,0 +1,109 @@
+<view class="container" wx:if="{{advanceOrder}}">
+
+  <!-- 收货地址 -->
+  <view class="weui-cells weui-cells_after-title clearingInfo-dz">
+      <navigator url="../addressList/addressList?ids={{ids}}" class="weui-cell">
+          <view class="weui-cell__hd">
+              <icon class="iconfont icon-address"></icon>
+          </view>
+          <view class="weui-cell__bd">
+              <view wx:if="{{advanceOrder.address}}">
+                  <view>{{advanceOrder.address.consignee}} 
+                    <text class="fr">{{advanceOrder.address.mobile}}</text>
+                  </view>
+                  <view>{{advanceOrder.address.province.province}} 
+                        {{advanceOrder.address.city.city}} 
+                        {{advanceOrder.address.area.area}} 
+                        {{advanceOrder.address.detaile}}
+                  </view>
+              </view>
+              <view wx:if="{{!advanceOrder.address}}">请填写收货地址</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+  </view>
+  <!-- 收货地址/ -->
+
+  <!-- 头部 -->
+  <view class="shoppingCart-ttBox">
+      <view class="shoppingCart-tt"><icon class="iconfont icon-dianpu"></icon>特步微商城</view>
+  </view>
+  <!-- 头部/ -->
+
+  <!-- 商品信息 -->
+  <view class="weui-cells weui-cells_after-title" style="margin-bottom: 0;">
+    <block wx:for="{{advanceOrder.cartsList}}" wx:key="*this">
+        <view class="weui-cell weui-check__label">
+            <view class="weui-cell__bd">
+                <navigator url="../productInfo/productInfo?id={{item.stock_info.product_id}}" >
+                    
+                    <view class="shoppingCart-img">
+                        <image mode="scaleToFill" src="{{item.stock_info.spec_pic}}" lazy-load></image>
+                    </view>
+
+                    <view class="shoppingCart-box">
+                        <view class="shoppingCart-box-ct1 text2">{{item.stock_info.product_name}}</view>
+                        <view class="shoppingCart-box-ct2">颜色：{{item.stock_info.spec_name}}；尺码：{{item.stock_info.size}}</view>
+                        <view class="shoppingCart-box-ct3">
+                          <text>￥</text>
+                          {{item.stock_info.shop_price}} 
+                          <text class="fr">x{{item.count}}</text>
+                        </view>
+                    </view>
+
+                </navigator>
+            </view>
+        </view>
+    </block>
+  </view>
+  <!-- 商品信息/ -->
+
+  <!-- 运费 -->
+  <view class="weui-cells weui-cells_after-title orderList-form">
+      <view class="weui-cell">
+          <view class="weui-cell__bd">运费:</view>
+          <view class="weui-cell__ft">包邮</view>
+      </view>
+  </view>
+  <!-- 运费/ -->
+
+  <!-- 合计 -->
+  <view class="weui-cells weui-cells_after-title clearingInfo-form">
+      <view class="weui-cell">
+          <view class="weui-cell__bd">合计:</view>
+          <view class="weui-cell__ft" style="color: #c0000f;">{{advanceOrder.totalPrice}}</view>
+      </view>
+  </view>
+  <!-- 合计/ -->
+
+  <!-- 留言 -->
+  <view class="weui-cells weui-cells_after-title clearingInfo-form">
+      <view class="weui-cell">
+          <view class="weui-cell__bd">
+              <textarea class="weui-textarea" placeholder="给卖家留言" style="height: 4em" bindinput="_input" data-name="note"/>
+              <view class="weui-textarea-counter">{{noteLen}}/200</view>
+          </view>
+      </view>
+  </view>
+  <!-- 留言/ -->
+
+  <!-- 底部结算 -->
+  <view class="btn-bottom2">
+      <view class="weui-flex">
+          <view class="weui-flex__item">
+              <view hidden="{{edit}}">
+                  <view class="btn-bottom2-ct1">合计：￥{{advanceOrder.totalPrice}}</view>
+                  <view class="btn-bottom2-ct2">包邮</view>
+              </view>
+          </view>
+          <button bindtap="_settleAccounts">结算</button>
+      </view>
+  </view>
+  <!-- 底部结算/ -->
+  
+  <success title="下单成功" btn-name="立即付款" bindbtn="_pay" wx:if="{{success}}">
+    <view slot="content">您已经下单成功了，请抓紧时间付款哦</view>
+  </success>
+</view>
+
+

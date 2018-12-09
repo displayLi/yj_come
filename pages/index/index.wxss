@@ -1,0 +1,138 @@
+page{
+    background-color: #f1f1f1;
+}
+.logo{
+    width: 120rpx;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 20rpx;
+    margin-top: 14rpx;
+}
+.home-ssh-box{
+    height: 48px;
+}
+.home-ssh{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 100;
+}
+.home-exercise-items{
+    background-color: #ffffff;
+    padding: 20rpx 10rpx;
+}
+.home-exercise-items:after{
+    display: table;
+    content: '';
+    clear: both;
+}
+.home-exercise-item{
+    width: 50%;
+    float: left;
+    padding: 0 10rpx;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 10rpx;
+}
+.home-exercise-item navigator{
+    display: block;
+    position: relative;
+}
+.home-exercise-item image{
+    border-radius: 10rpx;
+}
+.home-exercise-item-ct{
+    position: absolute;
+    right: 20rpx;
+    bottom: 20rpx;
+    color: #ffffff;
+    text-align: center;
+}
+.toutiao{
+    border-top: #e0e0e0 1px solid;
+    padding: 20rpx 0;
+    background-color: #ffffff;
+}
+.toutiao-img{
+    width: 88rpx;
+    height: 88rpx;
+    padding: 0 20rpx;
+    border-right: #e0e0e0 1px solid;
+}
+.toutiao-img image{
+    width: 100%;
+}
+.toutiao .weui-flex__item{
+    padding:0 20rpx;
+}
+.toutiao swiper{
+    height: 88rpx;
+}
+.home-imgBox{
+    background-color: #fff;
+    font-size: 0;
+    margin-top: 20rpx;
+}
+.home-imgBox-img1{
+    float: left;
+    width: 360rpx;
+    height: 310rpx;
+    margin-right: 4rpx;
+}
+.home-imgBox navigator{
+    display: block;
+    height: 100%;
+}
+.home-imgBox-img2{
+    float: left;
+    width: 386rpx;
+    height: 153rpx;
+    margin-bottom: 4rpx;
+}
+home-imgBox-img1+.home-imgBox-img2{
+    margin-top: 0;
+}
+.home-nav{
+    padding: 30rpx 15rpx 15rpx;
+    background-color: #ffffff;
+    margin-top: 20rpx;
+}
+.home-nav-list{
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+.home-nav-list image{
+    width: 110rpx;
+    height: 110rpx;
+    border-radius: 6rpx;
+}
+.home-nav-list view{
+    line-height: 60rpx;
+    color: #8e8e8e;
+}
+
+.home-box{
+    background-color: #fff;
+    margin-top: 20rpx;
+}
+.home-box-tt{
+    line-height: 90rpx;
+    text-align: center;
+}
+.home-box-tt:after,.home-box-tt:before{
+    display: inline-block;
+    content: '';
+    border-bottom: #101010 1px solid;
+    width: 40rpx;
+    vertical-align: middle;
+    margin: 0 20rpx;
+}
+.home-box-swiper{
+    text-align: center;
+}
+.home-box-swiper image{
+    width: 90%;
+}

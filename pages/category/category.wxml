@@ -1,0 +1,24 @@
+<view class="container">
+
+  <!-- 一级分类 -->
+  <scroll-view class="category-l" scroll-y>
+    <block wx:for="{{category}}" wx:key="{{item.id}}">
+      <view class="{{item.id == categoryId ? 'category-l-act' : ''}}" bindtap="_categoryChange" data-id="{{item.id}}">{{item.cat_name}}</view>
+    </block>
+  </scroll-view>
+  <!-- 一级分类/ -->
+
+  <!-- 二级分类 -->
+  <scroll-view class="category-r" scroll-y>
+    <block wx:for="{{extCategory}}" wx:key="*this">
+      <navigator url="../productList/productList?extendId={{item.id}}" class="category-r-box">
+        <view class="img-box">
+          <image src="{{item.pic}}" mode="aspectFit" lazy-load></image>
+        </view>
+        <text class="text1">{{item.extend_cat_name}}</text>
+      </navigator>
+    </block>
+  </scroll-view>
+  <!-- 二级分类 -->
+
+</view>

@@ -1,0 +1,84 @@
+page{
+    background-color: #f1f1f1;
+}
+
+.personal-top{
+    position: relative;
+    padding: 56rpx 30rpx;
+    height: 172rpx;
+}
+.personal-top .personal-top-bg{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.personal-top-portrait{
+    width: 156rpx;
+    height: 156rpx;
+    float: left;
+    border:rgba(255,255,255,0.2) 8rpx solid;
+    border-radius: 50%;
+    margin-right: 22rpx;
+}
+.personal-top-name{
+    margin-top:20rpx;
+    font-size: 32rpx;
+    font-weight:600;
+    color: #101010;
+}
+.personal-top-num{
+    margin-top: 32rpx;
+    font-size: 26rpx;
+    color: #101010;
+}
+.personal-top-num text{
+    margin: 0 35rpx;
+}
+
+
+.personal-order{
+    margin: 20rpx 0;
+    background-color: #fff;
+}
+.personal-order .weui-cells::after{
+    content:" ";
+    position:absolute;
+    left:30rpx;
+    right:30rpx;
+    height:1px;
+    color:#d9d9d9;
+}
+.personal-order-snav{
+    padding: 36rpx 0 42rpx;
+    text-align: center;
+}
+.personal-order-snav .weui-flex__item{
+    position: relative;
+}
+ .weui-badge{
+    position: absolute;
+    left: 50%;
+     margin-left: 10rpx;
+     top: -16rpx;
+}
+.personal-order-snav .weui-flex__item image{
+    width: 60rpx;
+    height: 50rpx;
+}
+.personal-order-txt{
+    font-size: 24rpx;
+    color: #8a8a8a;
+}
+
+
+.personal-grids{
+    background-color: #ffffff;
+}
+.personal-grids .weui-grid_active{
+    background-color: transparent;
+}

@@ -1,0 +1,72 @@
+<view class="container">
+    <view class="pd32">
+
+        <view class="goods">
+            <view class="goods-tt">特步微商城</view>
+            <view class="weui-flex goods-list">
+                <view class="goods-list-img">
+                    <image mode="scaleToFill" src="{{info.snap_carts.stock_info.spec_pic}}"></image>
+                </view>
+                <view class="weui-flex__item goods-list-ct">
+                    <navigator url="../productInfo/productInfo?id={{info.snap_carts.stock_info.product_id}}">
+                        <view class="text2">{{info.snap_carts.stock_info.product_name}}</view>
+                        <view>颜色：{{info.snap_carts.stock_info.spec_name}}；尺码：{{info.snap_carts.stock_info.size}}</view>
+                    </navigator>
+                </view>
+                <view class="goods-list-fr">
+                    <view>￥{{info.snap_carts.stock_info.shop_price}}</view>
+                    <view>×{{info.snap_carts.count}}</view>
+                </view>
+            </view>
+            <view class="goods-price">共{{info.snap_carts.count}}件商品，合计：
+                <text style="color: #d6000f;">￥{{info.snap_carts.proPrice}}</text>
+            </view>
+        </view>
+
+        <view class="afterSaleDetails-box">
+            <view class="afterSaleDetails-box-tt">退款信息</view>
+            <view class="afterSaleDetails-box-ct">订单编号：{{info.afterSale.afterSale_sn}}</view>
+            <view class="afterSaleDetails-box-ct">退款金额：<text style="color: #d6000f;">￥{{info.money}}</text></view>
+            <view class="afterSaleDetails-box-ct">退款方式：{{info.modality.modalityDesc}}</view>
+            <view class="afterSaleDetails-box-ct">货物状态：{{info.product_state.state_name}}</view>
+            <view class="afterSaleDetails-box-ct">退款理由：{{info.reason.reason}}</view>
+            <view class="afterSaleDetails-box-ct">退款说明：{{info.explain}}</view>
+            <view class="afterSaleDetails-box-ct">退款状态： <text style="color: #0000ff;">{{info.status.statusDesc}}</text></view>
+            <view class="afterSaleDetails-box-ct" wx:if="{{info.logistics}}">物流名称：{{info.logistics.name}}</view>
+            <view class="afterSaleDetails-box-ct" wx:if="{{info.logistics_code}}">物流编号：{{info.logistics_code}}</view>
+            <view class="afterSaleDetails-box-ct">申请时间：{{info.create_time}}</view>
+            <view class="afterSaleDetails-box-ct">更新时间：{{info.update_time}}</view>
+        </view>
+    </view>
+
+    <view class="afterSaleList-btn">
+        <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_goModality" wx:if="{{info.count<afterSaleCount}}">修改退货信息</button>
+        <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_writeShow" wx:if="{{info.status.status == 3}}">填写物流信息</button>
+        <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_cancelTheRefund"  wx:if="{{info.status.status < 5}}">撤销申请</button>
+    </view>
+</view>
+
+<view class="mask" wx:if="{{writeShow}}">
+    <view class="prompt">
+        <view class="prompt-tt">填写物流信息</view>
+        <view class="prompt-ct">
+            <view class="weui-flex">
+                <picker
+                        bindchange="_input"
+                        value="{{logisticsIndex}}"
+                        range="{{logisticsList}}"
+                        range-key="name"
+                        data-name="logisticsIndex"
+                        style="width: 100%;"
+                >
+                    <view class="weui-select" style="border-right: 0;">{{logisticsIndex == null ? '请选择物流公司' : logisticsList[logisticsIndex].name}}</view>
+                </picker>
+            </view>
+            <view class="weui-flex"><input class="weui-flex__item" type="text" placeholder="请输入物流单号" style="padding: 0 15px" data-name="logisticsCode" bindinput="_input"/></view>
+        </view>
+        <view class="prompt-btn weui-flex">
+            <view class="weui-flex__item"><button bindtap="_writeShow">取消</button></view>
+            <view class="weui-flex__item"><button bindtap="_submitLogistics">确认</button></view>
+        </view>
+    </view>
+</view>

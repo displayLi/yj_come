@@ -1,0 +1,7 @@
+.modality-cells icon{
+    font-size: 36rpx;
+    margin-right: 20rpx;
+}
+.modality-cells .weui-cell__bd{
+    font-size: 28rpx;
+}

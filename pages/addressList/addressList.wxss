@@ -1,0 +1,40 @@
+page{
+    background-color: #f1f1f1;
+}
+.address{
+    background-color: #fff;
+}
+.address-ct{
+    padding: 30rpx;
+    font-size: 28rpx;
+}
+.address-ct view text{
+    margin-left: 20rpx;
+    color: #c0000f;
+}
+.address-ct .c1{
+    color: #999;
+}
+.address .weui-cell__hd text{
+    font-size: 26rpx;
+    display: inline-block;
+    vertical-align: middle;
+}
+.address-btn{
+    text-align: right;
+}
+.address-btn navigator,.address-btn button{
+    display: inline-block;
+    vertical-align: middle;
+    height: 60rpx;
+    line-height: 60rpx;
+    margin-top: 0;
+    margin-left: 20rpx;
+    padding:0 1.34em;
+    font-size: 24rpx;
+}
+.address-btn .red{
+    background-color: #c0000f;
+    color: #ffffff;
+    border-radius:5px;
+}

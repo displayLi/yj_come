@@ -1,0 +1,101 @@
+<view class="container">
+
+  <form bindsubmit="_formSubmit">
+      <view class="weui-cells weui-cells_after-title editAddress-form">
+
+          <!-- 收货人姓名 -->
+          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                  <input class="weui-input" placeholder="请填写收货人" name="consignee" value="{{addressInfo.consignee}}"/>
+              </view>
+          </view>
+          <!-- 收货人姓名/ -->
+
+          <!-- 收货人手机 -->
+          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                  <input class="weui-input" placeholder="请填写手机号码" name="mobile" value="{{addressInfo.mobile}}"/>
+              </view>
+          </view>
+          <!-- 收货人手机/ -->
+
+          <!-- 省份 -->
+          <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__bd">
+                  <picker
+                          bindchange="_provinceChange"
+                          value="{{provinceIndex}}"
+                          range="{{provinceList}}"
+                          data-name="provinceIndex"
+                          range-key="province"
+                  >
+                      <view class="weui-select">{{addressInfo.province.province ? addressInfo.province.province : '请选择省份'}}</view>
+                  </picker>
+              </view>
+          </view>
+          <!-- 省份/ -->
+
+          <!-- 城市 -->
+          <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__bd">
+                  <picker
+                          bindchange="_cityChange"
+                          value="{{cityIndex}}"
+                          range="{{cityList}}"
+                          range-key="city"
+                          data-name="cityIndex"
+                          disabled="{{!cityList.length}}"
+                  >
+                      <view class="weui-select">{{addressInfo.city.city ? addressInfo.city.city : '请选择城市'}}</view>
+                  </picker>
+              </view>
+          </view>
+          <!-- 城市/ -->
+
+          <!-- 县区 -->
+          <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__bd">
+                  <picker
+                          bindchange="_areaChange"
+                          value="{{areaIndex}}"
+                          range="{{areaList}}"
+                          range-key="area"
+                          data-name="areaIndex"
+                          disabled="{{!areaList.length}}"
+                  >
+                      <view class="weui-select">{{addressInfo.area.area ? addressInfo.area.area : '请选择县区'}}</view>
+                  </picker>
+              </view>
+          </view>
+          <!-- 县区 -->
+
+          <!-- 详细地址 -->
+          <view class="weui-cell">
+              <view class="weui-cell__bd">
+                  <textarea class="weui-textarea" placeholder="请输入详细地址" style="height: 3.3em" name="detaile" value="{{addressInfo.detaile}}" data-name='addressInfo.detaile' bindinput="_input"/>
+                  <view class="weui-textarea-counter">{{detaileLen}}/200</view>
+              </view>
+          </view>
+          <!-- 详细地址/ -->
+
+      </view>
+
+      <!-- 默认地址 -->
+      <checkbox-group bindchange="_defaultChange">
+          <label>
+              <checkbox class="weui-check" checked="{{addressInfo.default}}" name="default"/>
+              <view class="weui-cell__hd weui-check__hd_in-checkbox pd32">
+                  <icon class="weui-icon-checkbox_circle" type="circle" size="18" wx:if="{{!addressInfo.default}}"></icon>
+                  <icon class="weui-icon-checkbox_success" color="#c0000f" type="success" size="18" wx:if="{{addressInfo.default}}"></icon>
+                  <text>设为默认地址</text>
+              </view>
+          </label>
+      </checkbox-group>
+      <!-- 默认地址/ -->
+
+      <view class="weui-btn-area">
+          <button class="weui-btn" type="primary"  formType="submit" style="background-color: #c0000f;" >保存</button>
+      </view>
+
+  </form>
+</view>

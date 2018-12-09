@@ -1,0 +1,69 @@
+page{
+    background-color: #f1f1f1;
+}
+.clearingInfo-dz{
+    font-size: 28rpx;
+}
+.clearingInfo-dz .iconfont{
+    margin-right: 20rpx;
+    font-size: 32rpx;
+}
+
+.shoppingCart-ttBox{
+    height: 88rpx;
+}
+.shoppingCart-tt{
+    height: 88rpx;
+    padding: 0 30rpx;
+    line-height: 88rpx;
+    font-size: 30rpx;
+    color: #060606;
+    background-color: #ffffff;
+    border-bottom: #e9e9e9 1px solid;
+}
+.shoppingCart-tt icon{
+    margin-right: 8rpx;
+    font-size: 32rpx;
+}
+.shoppingCart-img{
+    float: left;
+    width: 190rpx;
+    height: 190rpx;
+    margin-right: 20rpx;
+}
+.shoppingCart-img image{
+    width: 100%;
+    height: 100%;
+}
+.shoppingCart-box-ct1{
+    font-size: 28rpx;
+    color: #060606;
+    line-height: 38rpx;
+    height: 76rpx;
+}
+.shoppingCart-box-ct2{
+    font-size: 24rpx;
+    margin: 16rpx 0;
+    color: #8a8a8a;
+}
+.shoppingCart-box-ct3{
+    font-size: 34rpx;
+    color: #d6000f;
+}
+.shoppingCart-box-ct3 text{
+    font-size: 24rpx;
+}
+.shoppingCart-box-ct3 text.fr{
+    color: #8a8a8a;
+}
+
+.clearingInfo-form{
+    font-size: 28rpx;
+    margin-bottom: 0;
+}
+.clearingInfo-form:before{
+    border: none 0;
+}
+.orderList-form:before{
+    border: none 0;
+}

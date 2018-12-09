@@ -1,0 +1,35 @@
+.category-l{
+    background-color: #f1f1f1;
+    width: 200rpx;
+    height: 100%;
+    color: #8a8a8a;
+    float: left;
+}
+.category-l view{
+    padding: 30rpx 20rpx;
+    border-bottom:#f9f9f9 2rpx solid;
+    border-left:#f1f1f1 8rpx solid;
+}
+.category-l view.category-l-act{
+    background-color: #ffffff;
+    border-left-color:#d0070d;
+}
+
+.category-r{
+    padding-left:200rpx;
+    width: 550rpx;
+}
+.category-r-box{
+    display: inline-block;
+    width: 33.33%;
+    padding: 0 24rpx;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 26rpx;
+}
+.category-r-box text{
+    display: block;
+    margin-top: 10rpx;
+    font-size: 24rpx;
+    line-height: 32rpx;
+}

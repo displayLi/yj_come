@@ -1,0 +1,93 @@
+<view class="container">
+
+    <!-- 排序 -->
+    <view class="list-navbar">
+        <view class="weui-flex">
+
+            <view class="weui-flex__item {{order == orderEnum.productSales || order == orderEnum.productSalesDesc ? 'red' : ''}}" bindtap="_salesOrderBy">
+                销量
+                <view class="triangle">
+                    <icon class="triangleTop {{order == orderEnum.productSales ? 'red' : ''}}"></icon>
+                    <icon class="triangleBottom {{order == orderEnum.productSalesDesc ? 'red' : ''}}"></icon>
+                </view>
+            </view>
+
+            <view class="weui-flex__item {{order == orderEnum.shopPrice || order == orderEnum.shopPriceDesc ? 'red' : ''}}" bindtap="_priceOrderBy">
+                价格
+                <view class="triangle">
+                    <icon class="triangleTop {{order == orderEnum.shopPrice ? 'red' : ''}}"></icon>
+                    <icon class="triangleBottom {{order == orderEnum.shopPriceDesc ? 'red'  : ''}}"></icon>
+                </view>
+            </view>
+
+            <view class="weui-flex__item {{ filtrateHidden ? '' : 'red'}}" bindtap="_filtrateHidden">
+                筛选<icon class="iconfont icon-shaixuan"></icon>
+            </view>
+
+            <view class="icon-btn" bindtap="_listStyleChange">
+                <icon class="iconfont {{listStyle ? 'icon-liebiao2' : 'icon-liebiao'}}"></icon>
+            </view>
+
+        </view>
+    </view>
+    <!-- 排序/ -->
+
+    <!-- 筛选 -->
+    <view class="filtrate-bg" hidden="{{ filtrateHidden }}" bindtap="_filtrateHidden">
+        <view class="filtrate-box" catchtap="catchFun">
+
+            <view class="filtrate-tt">价格区间</view>
+            <view class="filtrate-ipt">
+                <input type="number" data-name="priceMin" bindinput="_input" value="{{priceMin}}"/>
+                —
+                <input type="number"  data-name="priceMax" bindinput="_input" value="{{priceMax}}"/>
+            </view>
+
+            <view class="filtrate-tt">品类选择</view>
+            <view class="filtrate-list clearfix">
+                <block wx:for="{{category}}" wx:key="{{item.id}}">
+                    <view class="{{catId == item.id ? 'act' : ''}}" data-id="{{item.id}}" catchtap="_categoryChange">
+                        <text>{{item.cat_name}}</text>
+                    </view>
+                </block>
+            </view>
+
+            <view class="filtrate-btn clearfix">
+                <button catchtap="reset">重置</button>
+                <button class="red" catchtap="_submit">确定</button>
+            </view>
+
+        </view>
+    </view>
+    <!-- 筛选/ -->
+
+    <!-- 商品列表 -->
+    <view class="{{listStyle ? 'list1' : 'list2'}}">
+        <view class="list-item" wx:for="{{products}}" wx:key="{{item.id}}">
+            <navigator url="../productInfo/productInfo?id={{item.id}}">
+                <view class="list-item-img">
+                    <image lazy-load src="{{item.pic_list[0].pic}}" mode="aspectFit" lazy-load></image>
+                </view>
+                <view class="list-item-ct1 text2">{{item.product_name}}</view>
+                <view class="list-item-ct2">
+                    <view class="price">¥{{item.shop_price}} <text class="del">¥{{item.market_price}}</text></view>
+                    <text class="sales">已售{{item.product_sales}}件</text>
+                </view>
+            </navigator>
+        </view>
+    </view>
+    <!-- 商品列表/ -->
+
+    <!-- 加载状态 -->
+    <view class="loadmore-bg">
+        <view class="weui-loadmore" hidden="{{!has_more}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{has_more}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+    </view>
+    <!-- 加载状态/ -->
+    
+</view>

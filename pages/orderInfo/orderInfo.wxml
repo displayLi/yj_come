@@ -1,0 +1,95 @@
+<view class="container">
+  <view class="pd32">
+
+      <view class="goods">
+          <view class="goods-tt">特步微商城 
+            <text class="fr" style="color: #d6000f;">{{orderInfo.order_status.statusName}}</text>
+          </view>
+
+          <block wx:for="{{orderInfo.snap_carts}}" wx:key="*this">
+              <view class="weui-flex goods-list">
+                  <view class="goods-list-img">
+                      <image mode="scaleToFill" src="{{item.stock_info.spec_pic}}"></image>
+                  </view>
+                  <view class="weui-flex__item goods-list-ct">
+                      <navigator url="../productInfo/productInfo?id={{item.stock_info.product_id}}">
+                          <view class="text2">{{item.stock_info.product_name}}</view>
+                          <view>颜色：{{item.stock_info.spec_name}}；尺码：{{item.stock_info.size}}</view>
+                      </navigator>
+                  </view>
+                  <view class="goods-list-fr">
+                      <view>￥{{item.stock_info.shop_price}}</view>
+                      <view>×{{item.count}}</view>
+                      <view>
+                          <navigator url="../afterSale/afterSale?modality=1&orderId={{orderInfo.id}}&cartsId={{item.id}}" wx:if="{{!item.after_sale_status && orderInfo.order_status.status == 2 && item.is_after_sale}}">退款</navigator>
+                          <navigator url="../modality/modality?orderId={{orderInfo.id}}&cartsId={{item.id}}" wx:if="{{!item.after_sale_status && orderInfo.order_status.status != 2 && item.is_after_sale}}">退款</navigator>
+                          <text wx:if="{{item.after_sale_status && !item.is_after_sale}}">{{item.after_sale_status}}</text>
+                      </view>
+                  </view>
+              </view>
+          </block>
+
+          <view class="goods-price">共{{orderInfo.snap_carts.length}}件商品，合计：
+            <text style="color: #d6000f;">￥{{orderInfo.total_amount}}</text>
+          </view>
+
+      </view>
+
+      <view class="orderDetails-box">
+          <view class="orderDetails-box-tt">收货地址</view>
+          <view class="orderDetails-box-ct">
+            {{orderInfo.snap_address.province.province}} 
+            {{orderInfo.snap_address.city.city}}
+            {{orderInfo.snap_address.area.area}} 
+            {{orderInfo.snap_address.detaile}} 
+          </view>
+          <view class="orderDetails-box-ct">收货人：{{orderInfo.snap_address.consignee}} {{orderInfo.snap_address.mobile}}</view>
+      </view>
+
+      <view class="orderDetails-box">
+          <view class="orderDetails-box-tt">更多信息</view>
+          <view class="orderDetails-box-ct">订单编号：{{orderInfo.order_sn}}</view>
+          <view class="orderDetails-box-ct">创建时间：{{orderInfo.create_time}}</view>
+
+          <view class="orderDetails-box-ct" wx:if="{{orderInfo.pay_time}}">付款时间：{{orderInfo.pay_time}}</view>
+          <view class="orderDetails-box-ct" wx:if="{{orderInfo.logistics_code}}">运单号码：{{orderInfo.logistics_code}}</view>
+          <view class="orderDetails-box-ct" wx:if="{{orderInfo.logistics.name}}">物流公司：{{orderInfo.logistics.name}}</view>
+          <view class="orderDetails-box-ct" wx:if="{{orderInfo.deliver_time}}">发货时间：{{orderInfo.deliver_time}}</view>  
+          <view class="orderDetails-box-ct" wx:if="{{orderInfo.confirm_time}}">收货时间：{{orderInfo.confirm_time}}</view>         
+          <view class="orderDetails-box-ct">订单备注：{{orderInfo.user_note ? orderInfo.user_note : '无'}}</view>
+      </view>
+  </view>
+
+  <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{orderInfo.order_status.status == 1}}">
+      <view class="weui-cell">
+          <view class="weui-cell__bd orderList-btn">
+              <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_cancelOrder">取消订单</button>
+              <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_pay">立即支付</button>
+          </view>
+      </view>
+  </view>
+
+  <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{orderInfo.order_status.status == 3}}">
+      <view class="weui-cell">
+          <view class="weui-cell__bd orderList-btn">
+              <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_confirmDelivery">确认收货</button>
+          </view>
+      </view>
+  </view>
+  <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{orderInfo.order_status.status == 4}}">
+      <view class="weui-cell">
+          <view class="weui-cell__bd orderList-btn">
+              <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_goComment">评价</button>
+               <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_deleteOrder">删除订单</button>
+          </view>
+      </view>
+  </view>
+
+   <view class="weui-cells weui-cells_after-title orderList-form" wx:if="{{orderInfo.order_status.status == 5}}">
+      <view class="weui-cell">
+          <view class="weui-cell__bd orderList-btn">
+               <button class="weui-btn mini-btn" type="default" size="mini" bindtap="_deleteOrder">删除订单</button>
+          </view>
+      </view>
+  </view>
+</view>

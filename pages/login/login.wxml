@@ -1,0 +1,46 @@
+<view class="container">
+
+  <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+              <view class="weui-label">手机号</view>
+          </view>
+          <view class="weui-cell__bd">
+              <input class="weui-input" type="number" data-name='mobile' bindinput="_input" placeholder="请输入手机号"/>
+          </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+              <view class="weui-label">验证码</view>
+          </view>
+          <view class="weui-cell__bd">
+              <input class="weui-input" type="number" data-name="code" bindinput="_input" placeholder="请输入验证码" />
+          </view>
+          <view class="weui-cell__ft">
+              <view class="weui-vcode-btn" bindtap="_getCode">{{codeText}}</view>
+          </view>
+      </view>
+  </view>
+
+  <checkbox-group bindchange="_agressChange">
+      <label class="weui-agree" for="weuiAgree">
+          <view class="weui-agree__text">
+              <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+              <view class="weui-agree__checkbox-icon">
+                  <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+              </view>
+              阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
+          </view>
+      </label>
+  </checkbox-group>
+
+  <view class="weui-btn-area">
+      <button class="weui-btn" 
+              type="primary" 
+              style="background-color: #3191E8;" 
+              disabled="{{!isAgree}}" 
+              bindtap="_bindMobile">绑定手机号</button>
+  </view>
+
+</view>

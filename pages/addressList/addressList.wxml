@@ -1,0 +1,60 @@
+<view class="container">
+  <block wx:for="{{addressList}}" wx:key="*this">
+      <view class="address" wx:if="{{addressList.length}}">
+          
+          <!-- 订单选择地址时显示 -->
+          <navigator url="../settlement/settlement?addressId={{item.id}}&ids={{ids}}" wx:if="{{ids}}">
+              <view class="address-ct">
+                  <view>{{item.consignee}} {{item.mobile}} <text wx:if="{{item.default}}">默认地址</text></view>
+                  <view class="c1">{{item.province.province}} {{item.city.city}} {{item.area.area}} {{item.detaile}}</view>
+              </view>
+          </navigator>
+          <!-- 订单选择地址时显示/ -->
+
+          <!-- 用户查看收货地址 -->
+          <view class="address-ct" wx:if="{{!ids}}">
+            <view>{{item.consignee}} {{item.mobile}} <text wx:if="{{item.default}}">默认地址</text></view>
+            <view class="c1">{{item.province.province}} {{item.city.city}} {{item.area.area}} {{item.detaile}}</view>
+          </view>
+          <!-- 用户查看收货地址/ -->
+
+          <view class="weui-cells weui-cells_after-title">
+              <view  class="weui-cell weui-check__label">
+
+                  <!-- 默认地址 -->
+                  <radio-group bindchange="_defaultChange">
+                      <label>
+                          <radio class="weui-check" value="{{item.id}}" checked="{{item.default}}"/>
+                          <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                              <icon class="weui-icon-checkbox_circle" type="circle" size="18" wx:if="{{!item.default}}"></icon>
+                              <icon class="weui-icon-checkbox_success" color="#c0000f" type="success" size="18" wx:if="{{item.default}}"></icon>
+                              <text>设为默认地址</text>
+                          </view>
+                      </label>
+                  </radio-group>
+                  <!-- 默认地址/ -->
+
+                  <!-- 编辑删除 -->
+                  <view class="weui-cell__bd address-btn">
+                      <navigator url="../addressInfo/addressInfo?id={{item.id}}{{ids? '&ids=' + ids : ''}}" class="red">编辑</navigator>
+                      <button class="weui-btn mini-btn" size="mini" data-index="{{index}}" bindtap="_delAddress" >删除</button>
+                  </view>
+                  <!-- 编辑删除/ -->
+
+              </view>
+          </view>
+
+      </view>
+  </block>
+
+  <!-- 添加新地址 -->
+  <view class="btn-bottom">
+      <view class="weui-flex">
+          <view class="weui-flex__item">
+              <navigator url="../addressInfo/addressInfo{{ids? '?ids=' + ids : ''}}" class="red">添加新地址</navigator>
+          </view>
+      </view>
+  </view>
+  <!-- 添加新地址/ -->
+
+</view>

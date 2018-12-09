@@ -1,0 +1,70 @@
+<view class="container">
+    <!-- 商品信息 -->
+    <view class="weui-flex goods-list">
+        <view class="goods-list-img">
+            <image mode="scaleToFill" src="{{info.carts.stock_info.spec_pic}}"></image>
+        </view>
+        <view class="weui-flex__item goods-list-ct">
+            <navigator url="../productInfo/productInfo?id={{info.carts.stock_info.product_id}}">
+                <view class="text2">{{info.carts.stock_info.product_name}}</view>
+                <view>颜色：{{info.carts.stock_info.spec_name}}；尺码：{{info.carts.stock_info.size}}</view>
+            </navigator>
+        </view>
+        <view class="goods-list-fr">
+            <view>￥{{info.carts.stock_info.shop_price}}</view>
+            <view>×{{info.carts.count}}</view>
+        </view>
+    </view>
+    <!-- 商品信息/ -->
+
+    <!-- 表单 -->
+    <view class="weui-cells weui-cells_after-title editAddress-form">
+
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__bd">
+                <input class="weui-input" type="number" placeholder="退款金额，最多可退￥{{info.carts.proPrice}}" data-name="params.money" value="{{params.money}}" bindinput="_moneyInput"/>
+            </view>
+        </view>
+
+        <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__bd">
+                <picker
+                        bindchange="_stateChange"
+                        value="{{stateIndex}}"
+                        range="{{info.reasonList}}"
+                        range-key="state_name"
+                        data-name="stateIndex"
+                >
+                    <view class="weui-select">{{stateIndex == null ? '请选择收货状态' : info.reasonList[stateIndex].state_name}}</view>
+                </picker>
+            </view>
+        </view>
+
+        <view class="weui-cell weui-cell_select">
+            <view class="weui-cell__bd">
+                <picker
+                        bindchange="_input"
+                        value="{{reasonIndex}}"
+                        range="{{reasons}}"
+                        range-key="reason"
+                        disabled="{{!reasons}}"
+                        data-name="reasonIndex"
+                >
+                    <view class="weui-select">{{reasonIndex == null ? '请选择退货原因' : reasons[reasonIndex].reason}}</view>
+                </picker>
+            </view>
+        </view>
+
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="退货说明" style="height: 4em"  data-name="params.explain" bindinput="_input"/>
+            </view>
+        </view>
+
+    </view>
+    <!-- 表单/ -->
+
+    <view class="weui-btn-area">
+        <button class="weui-btn" type="primary"  bindtap="_applyForRefund" style="background-color: #c0000f;" >提交</button>
+    </view>
+</view>
